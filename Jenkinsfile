@@ -32,7 +32,7 @@ pipeline {
               usernamePassword(credentialsId: 'server-cred', usernameVariable: 'USER', passwordVvariable: 'PASS')
           ])
             {
-                echo "username= " + "${USER}"
+                echo "username= " + "${env.USER}"
                 echo "passwrod= " + "$PASS"
             }
 
