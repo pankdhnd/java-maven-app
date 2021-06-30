@@ -3,6 +3,7 @@ pipeline {
   //declare custom environment variable
   environment{
     NEW_ENV_VAR = "JENKINS_TEST"
+    SERVER_CREDENTIALS = credentials('server-cred')
   }
     stages{
       stage("build"){
@@ -14,12 +15,12 @@ pipeline {
       stage("test"){
           when{
               expression {
-                  echo "${env.BRANCH_NAME}"
                   env.BRANCH_NAME == 'dev' || env.BRANCH_NAME =='test' || env.BRANCH_NAME == 'jenkins-jobs'
               }
           }
         steps{
           echo "printing from test step"
+          echo "${SERVER_CREDENTIALS}"
         }
       }
       stage("deploy"){
