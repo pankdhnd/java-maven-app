@@ -29,7 +29,7 @@ pipeline {
 
           //fetch credentails using withCredentials (requires Credentials Plugin)
           withCredentials([
-              usernamePassword(credentialsId: 'server-cred', usernameVariable: 'USER', passwordVvariable: 'PASS')
+              usernamePassword(credentialsId: 'server-cred', usernameVariable: 'USER', passwordVariable: 'PASS')
           ])
             {
                 echo "username= " + "${env.USER}"
