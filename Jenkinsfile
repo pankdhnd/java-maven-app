@@ -14,6 +14,7 @@ pipeline {
       stage("test"){
           when{
               expression {
+                  echo "${BRANCH_NAME}"
                   env.BRANCH_NAME == 'dev' || env.BRANCH_NAME =='test' || env.BRANCH_NAME == 'jenkins-jobs'
               }
           }
