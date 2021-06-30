@@ -10,6 +10,7 @@ pipeline {
         steps{
           echo "printing from build step"
           echo "Environment varialbe value: ${NEW_ENV_VAR}"
+          echo "${SERVER_CREDENTIALS}"
         }
       }
       stage("test"){
@@ -20,7 +21,6 @@ pipeline {
           }
         steps{
           echo "printing from test step"
-          echo "${SERVER_CREDENTIALS}"
         }
       }
       stage("deploy"){
