@@ -26,6 +26,15 @@ pipeline {
       stage("deploy"){
         steps{
           echo "printing from deploy step"
+
+          //fetch credentails using withCredentials (requires Credentials Plugin)
+          withCredentials([
+              usernamePassword(credentials: 'server-cred',usernameVariable: USER, passwordVariable: PASS)
+          ])
+            {
+                echo "username= ${USER}, password=${PASS}"
+            }
+
         }
       }
       stage("cleanup"){
