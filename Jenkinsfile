@@ -22,4 +22,15 @@ pipeline {
         }
       }
    }
+   post{
+       always{
+           echo "send email on pipeline completion"
+       }
+       failure{
+           echo "send email on pipeline failure"
+       }
+       success{
+           echo "send email on pipeline success"
+       }
+   }
 } 
