@@ -33,6 +33,7 @@ pipeline {
           ])
             {
                 echo "username= " + "$USER"
+                echo "passwrod= " + "$PASS"
             }
 
         }
