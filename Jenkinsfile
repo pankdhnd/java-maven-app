@@ -63,10 +63,7 @@ pipeline {
             {
                 echo "username= " + "$USER"
                 echo "passwrod= " + "$PASS"
-            }
-          //Accpting version a parameter
-         
-        
+            }                          
         }
       }
       stage("cleanup"){
