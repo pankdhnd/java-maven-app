@@ -3,7 +3,7 @@ pipeline {
   //parameterize the pipeline. This pipeline will ask for selection of parameters during exeuction, hence requires manual intervention
   parameters {
     //string(name: 'VERSION', defaultValue: '', description: 'version to deploy')
-    //choice(name: 'VERSION', choices: ['1.1.0'. '1.2.0', '1.3.0'], description: 'select build version to deploy')
+    choice (name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: 'select build version to deploy')
     booleanParam (name: 'executeTests', defaultValue: true, description: 'decided wheter to execute tests')
   }  
 
