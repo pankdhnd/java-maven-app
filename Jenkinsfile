@@ -1,3 +1,4 @@
+def gv
 pipeline {
   agent any
   //parameterize the pipeline. This pipeline will ask for selection of parameters during exeuction, hence requires manual intervention
@@ -13,11 +14,24 @@ pipeline {
     SERVER_CREDENTIALS = credentials('server-cred')
   }
     stages{
-      stage("build"){
+      stage("init"){
         steps{
-          echo "printing from build step"
+          script{
+            gv = load "script.groovy"
+          }
+
+        }
+
+      }
+
+      stage("build"){
+        steps{          
           echo "Environment varialbe value: ${NEW_ENV_VAR}"
           echo "${SERVER_CREDENTIALS}"
+
+          script {
+            gv.buildApp()
+          }
         }
       }
       stage("test"){
@@ -28,12 +42,19 @@ pipeline {
               }
           }
         steps{
-          echo "printing from test step"
+          script {
+            gv.testApp()
+          }          
         }
       }
+
+
       stage("deploy"){
         steps{
-          echo "printing from deploy step"
+          
+          script {
+            gv.deployApp()
+          }
 
           //fetch credentails using withCredentials (requires Credentials Plugin)
           withCredentials([
@@ -44,7 +65,7 @@ pipeline {
                 echo "passwrod= " + "$PASS"
             }
           //Accpting version a parameter
-         echo "deploying version: ${params.VERSION}" 
+         
         
         }
       }
