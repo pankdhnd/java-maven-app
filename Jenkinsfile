@@ -51,9 +51,17 @@ pipeline {
 
       stage("deploy"){
         steps{
-          
+          input{
+            message "Kindly select an environment to deploy to"
+            ok "Environment selected"
+            parameters{
+                  choice (name: 'ENV', choices: ['DEV', 'STAGING', 'PROD'], description: 'select environment to deploy')
+
+            }
+          }
           script {
             gv.deployApp()
+            echo "Deploying to ${ENV}"
           }
 
           //fetch credentails using withCredentials (requires Credentials Plugin)
