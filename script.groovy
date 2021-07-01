@@ -1,19 +1,24 @@
 def buildJar() {
-    echo "building the application..."
-    sh 'mvn package'
-} 
+    echo "Building jarfile"
+    sh 'mvn package'    
+}
 
-def buildImage() {
-    echo "building the docker image..."
-    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-        sh 'docker build -t nanajanashia/demo-app:jma-2.0 .'
-        sh "echo $PASS | docker login -u $USER --password-stdin"
-        sh 'docker push nanajanashia/demo-app:jma-2.0'
-    }
-} 
+def buildImage() {    
+    def imageVersion = input message: "Kindly input the image version number", ok: "Accept", parameters: [string(name: 'VERSION', defaultValue: '', description: '')]
+    echo "Building docker image"
+    withCredentials([
+                    usernamePassword(credentialsId: '3703ba37-a8bc-4d6e-8ab4-4bbbf4df5e8e', usernameVariable: 'USER', passwordVariable: 'PASS')
+                  ])
+
+                {
+                sh "docker build -t pankajdh/testrepo:java-maven-app-${imageVersion} ."
+                 sh 'echo $PASS | docker login -u $USER --password-stdin'
+                 sh "docker push pankajdh/testrepo:java-maven-app-${imageVersion}"
+                }
+}
 
 def deployApp() {
-    echo 'deploying the application...'
-} 
+    echo "Deploying the application"    
+}
 
 return this
