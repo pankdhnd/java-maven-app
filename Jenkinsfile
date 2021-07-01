@@ -1,3 +1,4 @@
+def gv
 pipeline {
     agent any
     //Maven is installed as a plugin and hence will not be available scripted pipeline, hence we have to add tools block to make it available
@@ -7,35 +8,35 @@ pipeline {
     }
     stages {
     
-        stage("build jar") {
+        stage("init") {
             steps {
                 script {
-                    sh 'mvn package'
+                    gv = load "script.groovy"
                 }
             }
         }
 
-        stage("deploy") {
-            input {
-            message "Kindly input the image version number"
-            ok "Accept"
-            parameters {
-                  string (name: 'VERSION', defaultValue: '', description: '')
-            }
-          }
-
+        stage("build jar") {
             steps {
-              sh 'docker build -t pankajdh/testrepo:java-maven-app-${VERSION} .'
-
-              script {
-                  withCredentials([
-                    usernamePassword(credentialsId: '3703ba37-a8bc-4d6e-8ab4-4bbbf4df5e8e', usernameVariable: 'USER', passwordVariable: 'PASS')
-                  ])
-
-                {
-                 sh 'echo $PASS | docker login -u $USER --password-stdin'
-                 sh 'docker push pankajdh/testrepo:java-maven-app-${VERSION}'
+                script {
+                    gv.buildJar()
                 }
+            }
+        }
+
+        stage("build image") {
+                 steps {
+              script {                  
+                  gv.buildImage()
+               
+              }
+            }
+        }
+
+           stage("deploy") {
+                 steps {
+              script {                  
+                  gv.deployApp()
                
               }
             }
