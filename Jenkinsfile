@@ -62,7 +62,7 @@ pipeline {
         steps {          
           script {
         //Input defined within script block. The user input can be directly stored in environment variable. The syntax of this block is different
-         env.InputENV = input message: "Kindly select an environment to deploy to", ok: "Select", parameters: [choice(name: 'ENVIRONMENT', choices ['DEV', 'STAGING', 'PROD'], description: '')]
+         env.InputENV = input message: "Kindly select an environment to deploy to", ok: "Select", parameters: [choice(name: 'ENVIRONMENT', choices: ['DEV', 'STAGING', 'PROD'], description: '')]
             gv.deployApp()
             echo "Deploying to ${ENV}"
             echo "Deploying to ${env.ENV}"
