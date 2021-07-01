@@ -25,7 +25,7 @@ pipeline {
           }
 
             steps {
-              sh 'docker build -t pankajdh/testrepo:java-maven-app-${VERSION}'
+              sh 'docker build -t pankajdh/testrepo:java-maven-app-${VERSION} .'
 
               script {
                   withCredentials([
