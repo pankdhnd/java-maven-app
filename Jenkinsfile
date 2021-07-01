@@ -24,7 +24,7 @@ pipeline {
           when{
               expression {
                   //env.BRANCH_NAME == 'dev' || env.BRANCH_NAME =='test' || env.BRANCH_NAME == 'jenkins-jobs'
-                  param.executeTests
+                  //param.executeTests
               }
           }
         steps{
@@ -44,7 +44,7 @@ pipeline {
                 echo "passwrod= " + "$PASS"
             }
           //Accpting version a parameter
-          echo "deploying version: ${params.VERSION}" 
+          //echo "deploying version: ${params.VERSION}" 
         
         }
       }
