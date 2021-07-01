@@ -11,9 +11,9 @@ def buildImage() {
                   ])
 
                 {
-                   sh 'docker build -t pankajdh/testrepo:java-maven-app-${imageVersion} .'
-                   sh 'echo $PASS | docker login -u $USER --password-stdin'
-                 sh 'docker push pankajdh/testrepo:java-maven-app-${imageVersion}'
+                sh "docker build -t pankajdh/testrepo:java-maven-app-${imageVersion} ."
+                 sh 'echo $PASS | docker login -u $USER --password-stdin'
+                 sh "docker push pankajdh/testrepo:java-maven-app-${imageVersion}"
                 }
 }
 
