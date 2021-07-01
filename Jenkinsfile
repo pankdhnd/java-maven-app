@@ -44,7 +44,7 @@ pipeline {
                 echo "passwrod= " + "$PASS"
             }
           //Accpting version a parameter
-          echo "deploying version: ${param.VERSION}" 
+          echo "deploying version: ${params.VERSION}" 
         
         }
       }
