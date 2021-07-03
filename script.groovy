@@ -3,7 +3,7 @@ def incrementVersion() {
     sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
     versions:commit'
     def extractedVersion = readFile("pom.xml") =~ '<version>(.+)</version>'
-    env.imageVersion = extractedVersion[0][1]
+    env.imageVersion = extractedVersion[0][1] + '-' + env.BUILD_NUMBER
     echo "updated version is ${imageVersion}"
     //In above statement, array element 0 stands for <version tag>, and element 1 stands for the value inside of it. This second dimention can also be used to read child node elements in xml
     //BUILD_NUMBER is the jenkins environment variable, which prvides the build number of the pipeline
