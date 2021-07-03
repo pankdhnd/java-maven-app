@@ -11,7 +11,15 @@ pipeline {
         stage("init") {
             steps {
                 script {
-                    gv = load "script.groovy"
+                    gv = load "script.groovy"                    
+                }
+            }
+        }
+
+        stage("increment version") {
+            steps {
+                script {
+                    gv.incrementVersion()
                 }
             }
         }
@@ -27,7 +35,7 @@ pipeline {
         stage("build image") {
             when {
                 expression {
-                    BRANCH_NAME == 'master'
+                    env.BRANCH_NAME == 'master'
                 }
             }
             steps {
@@ -41,7 +49,7 @@ pipeline {
            stage("deploy") {
                 when {
                 expression {
-                    BRANCH_NAME == 'master'
+                    env.BRANCH_NAME == 'master'
                 }
             }
                  steps {
@@ -53,4 +61,3 @@ pipeline {
         }
     }
 }
-
