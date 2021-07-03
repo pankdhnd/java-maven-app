@@ -1,6 +1,6 @@
 def incrementVersion() {
     echo "Incrementing application version"
-    sh 'maven build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
+    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
     versions:commit'
     def extractedVersion = readFile("pom.xml") =~ '<version>(.+)</version>'
     env.imageVersion = extractedVersion[0][1]-$BUILD_NUMBER
