@@ -36,6 +36,11 @@ pipeline {
 
     //Build image
         stage("build image") {
+            when {
+                expression {
+                    env.BRANCH_NAME == 'master'
+                }
+            }
             steps {
               script {                  
                   gv.buildImage()
@@ -46,6 +51,11 @@ pipeline {
     
     //Deploy the build/image
         stage("deploy") {
+            when {
+                expression {
+                    env.BRANCH_NAME == 'master'
+                }
+            }
             steps {
               script {                  
                   gv.deployApp()               
@@ -55,6 +65,11 @@ pipeline {
 
         //Commit the build version to git so that it could be used as reference for next auto increment
         stage("commit build version to git") {
+            when {
+                expression {
+                    env.BRANCH_NAME == 'master'
+                }
+            }
             steps {
               script {                  
                   gv.commitVersion()               
@@ -62,4 +77,3 @@ pipeline {
             }
         }
     }
-}
