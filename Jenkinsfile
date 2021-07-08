@@ -7,7 +7,7 @@ pipeline {
 
     }
     stages {
-    
+    //Initialize and load groovy script
         stage("init") {
             steps {
                 script {
@@ -15,7 +15,8 @@ pipeline {
                 }
             }
         }
-
+    
+    //Auto increment the build version
         stage("increment version") {
             steps {
                 script {
@@ -24,6 +25,7 @@ pipeline {
             }
         }
 
+    //Build jar file
         stage("build jar") {
             steps {
                 script {
@@ -32,6 +34,7 @@ pipeline {
             }
         }
 
+    //Build image
         stage("build image") {
             when {
                 expression {
@@ -45,17 +48,31 @@ pipeline {
               }
             }
         }
-
-           stage("deploy") {
-                when {
+    
+    //Deploy the build/image
+        stage("deploy") {
+            when {
                 expression {
                     env.BRANCH_NAME == 'master'
                 }
             }
-                 steps {
+            steps {
               script {                  
-                  gv.deployApp()
-               
+                  gv.deployApp()               
+              }
+            }
+        }
+
+        //Commit the build version to git so that it could be used as reference for next auto increment
+        stage("commit build version to git") {
+            when {
+                expression {
+                    env.BRANCH_NAME == 'master'
+                }
+            }
+            steps {
+              script {                  
+                  gv.commitVersion()               
               }
             }
         }
