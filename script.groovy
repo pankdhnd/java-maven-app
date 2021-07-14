@@ -50,4 +50,28 @@ def deployApp() {
     echo "Deploying the application"    
 }
 
+
+
+def commitVersion() {
+    echo "Committing incremented build version to git"
+    //Login to Git
+    withCredentials([
+                    usernamePassword(credentialsId: '20542441-57da-423b-b453-e284a0dd851b', usernameVariable: 'USER', passwordVariable: 'PASS')
+                  ])
+
+                {
+                //Encode password to avoid errors in URL formation/access
+                def encodedPassword = URLEncoder.encode("$PASS",'UTF-8')
+                //set user.email and user.name configuration (not setting globally here)
+                 sh 'git config user.email "jenkins-user@example.com"'
+                 sh 'git config user.name "Jenkins"'
+
+                 //set git remote url
+                 sh "git remote set-url origin https://${USER}:${encodedPassword}@github.com/pankdhnd/java-maven-app.git"
+                 sh 'git add .'
+                 sh 'git commit -m "incremented build version from pipeline"'
+                 sh 'git push origin HEAD:jenkins-job-docker'
+                }
+}
+
 return this
