@@ -9,13 +9,18 @@ def incrementVersion() {
     //BUILD_NUMBER is the jenkins environment variable, which prvides the build number of the pipeline
 }
 
+/*
+This method is already included in the shared library
 def buildJar() {
     echo "Building jarfile"
     //cleaning the package first to delete old files form target folder
     sh 'mvn clean package'
     sh 'mvn package'    
 }
+*/
 
+/*
+This method is already included in the shared library
 def buildImage() {    
     echo "Building docker image"
     withCredentials([
@@ -28,6 +33,7 @@ def buildImage() {
         sh "docker push pankajdh/testrepo:java-maven-app-$imageVersion"
     }
 }
+*/
 
 /*
 Accpets build version input from user. This process has been automated in the above function with same name
