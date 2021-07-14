@@ -70,7 +70,7 @@ def commitVersion() {
                  sh "git remote set-url origin https://${USER}:${encodedPassword}@github.com/pankdhnd/java-maven-app.git"
                  sh 'git add .'
                  sh 'git commit -m "incremented build version from pipeline"'
-                 sh 'git push origin HEAD:jenkins-job-docker'
+                 sh 'git push origin HEAD:jenkins-shared-library'
                 }
 }
 
