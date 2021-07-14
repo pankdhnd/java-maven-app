@@ -1,4 +1,6 @@
+@Library('jenkins-shared-library')
 def gv
+
 pipeline {
     agent any
     //Maven is installed as a plugin and hence will not be available scripted pipeline, hence we have to add tools block to make it available
@@ -27,7 +29,7 @@ pipeline {
         stage("build jar") {
             steps {
                 script {
-                    gv.buildJar()
+                    buildJar()
                 }
             }
         }
@@ -40,8 +42,7 @@ pipeline {
             }
             steps {
               script {                  
-                  gv.buildImage()
-               
+                  buildImage()               
               }
             }
         }
