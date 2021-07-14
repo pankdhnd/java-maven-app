@@ -41,8 +41,10 @@ pipeline {
                 }
             }*/
             steps {
-              script {                  
-                  buildImage()               
+              script {
+                  dockerLogin()                  
+                  buildImage() 
+                  dockerPush()              
               }
             }
         }
